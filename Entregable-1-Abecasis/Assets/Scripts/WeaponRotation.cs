@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Throw : MonoBehaviour
+public class WeaponRotation : MonoBehaviour
 {
-    
+
 }
