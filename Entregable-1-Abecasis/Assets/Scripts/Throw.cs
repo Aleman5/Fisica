@@ -20,7 +20,7 @@ public class Throw : MonoBehaviour
             Transform t = Instantiate(bullet, null).transform;
             t.eulerAngles += transform.eulerAngles;
 
-            t.GetComponent<BulletMovement>().CalculateVelocity();
+            t.GetComponent<BulletMovement>().CalculateVelocity(transform.eulerAngles.z);
         }
     }
 }

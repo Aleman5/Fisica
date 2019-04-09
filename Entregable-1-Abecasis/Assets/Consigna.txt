@@ -1,0 +1,4 @@
+2 Players. Cada uno controla un tanque queu se desplaza en el eje x con MRU y puede controlar el angulo de su torreta y la velocidad
+de disparo.
+El juego le permite a cada jugador un determinado tiemo para mover su tanque y disparar.
+El disparo debe seguir las fórmulas de tiro oblicuo y ser visible la bala durante el viaje.
