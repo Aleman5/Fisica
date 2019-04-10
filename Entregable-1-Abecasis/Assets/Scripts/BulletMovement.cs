@@ -21,19 +21,23 @@ public class BulletMovement : MonoBehaviour
     {
         time += Time.deltaTime;
 
+        float speedY = (adaptedVelocity.y + (-gravity * Mathf.Sqrt(time)) / 2) * Time.deltaTime;
+
         transform.Translate(
             adaptedVelocity.x * Time.deltaTime, // MRU
-            (adaptedVelocity.y + (-gravity * Mathf.Sqrt(time)) / 2) * Time.deltaTime, // Tiro Vertical + Caida Libre
+            speedY, // Tiro Vertical + Caida Libre
             0.0f);
+
+        Debug.Log(speedY);
     }
 
     public void CalculateVelocity(float degrees)
     {
         // Calculate based on the angle ofthe z axis
 
-        adaptedVelocity.x = velocity * Mathf.Cos(degrees);
+        adaptedVelocity.x = -velocity * Mathf.Cos(degrees);
         adaptedVelocity.y = velocity * Mathf.Sin(degrees);
 
-        Debug.Log("Velocity x: " + adaptedVelocity.x + " y: " + adaptedVelocity.y);
+        //Debug.Log("Velocity x: " + adaptedVelocity.x + " y: " + adaptedVelocity.y);
     }
 }
