@@ -17,15 +17,17 @@ public class Throw : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Transform tform = Instantiate(bullet, transform.position, Quaternion.identity).transform;
+            Transform t = Instantiate(bullet, parent.position, Quaternion.identity).transform;
 
-            tform.position = transform.position;
+            //t.position = transform.position;
 
             //tform.eulerAngles += transform.eulerAngles;
-            
-            Debug.Log(parent.eulerAngles.z);
 
-            tform.GetComponent<BulletMovement>().CalculateVelocity(parent.eulerAngles.z);
+            //Debug.Log(parent.eulerAngles.z);
+
+            WeaponRotation wR = parent.GetComponent<WeaponRotation>();
+
+            t.GetComponent<BulletMovement>().CalculateVelocity(wR.GetActualRotation());
         }
     }
 }

@@ -8,23 +8,34 @@ public class WeaponRotation : MonoBehaviour
 
     Transform cannon;
 
+    float actualRotation;
+
     void Awake()
     {
-        cannon = transform.GetComponentInChildren<Transform>();
+        actualRotation = 0.0f;
     }
 
     void Update()
     {
-        /*if (Input.GetKey(KeyCode.D) && cannon.transform.eulerAngles.z < -90.0f)
-            cannon.Rotate(0.0f, 0.0f, -rotationSpeed, Space.Self);
+        if (Input.GetKey(KeyCode.D) && actualRotation < 90.0f)
+        {
+            transform.Rotate(0.0f, 0.0f, -rotationSpeed, Space.Self);
+            actualRotation += rotationSpeed;
 
-        if (Input.GetKey(KeyCode.A) && cannon.transform.eulerAngles.z < 90.0f)
-            cannon.Rotate(0.0f, 0.0f, rotationSpeed, Space.Self);*/
+            if (actualRotation > 90.0f) actualRotation = 90.0f;
+        }
 
-        if (Input.GetKey(KeyCode.D))
-            cannon.Rotate(0.0f, 0.0f, -rotationSpeed, Space.Self);
+        if (Input.GetKey(KeyCode.A) && actualRotation > -90.0f)
+        {
+            transform.Rotate(0.0f, 0.0f,  rotationSpeed, Space.Self);
+            actualRotation -= rotationSpeed;
 
-        if (Input.GetKey(KeyCode.A))
-            cannon.Rotate(0.0f, 0.0f, rotationSpeed, Space.Self);
+            if (actualRotation < -90.0f) actualRotation = -90.0f;
+        }
+    }
+
+    public float GetActualRotation()
+    {
+        return actualRotation;
     }
 }

@@ -27,7 +27,7 @@ public class BulletMovement : MonoBehaviour
 
         //float speedY = (adaptedVelocity.y * Time.deltaTime - gravity * Mathf.Sqrt(Time.deltaTime) * 0.5f) * Time.deltaTime;
         pos.x += adaptedVelocity.x * Time.deltaTime;
-        pos.y += (adaptedVelocity.y * Time.deltaTime - gravity * Mathf.Sqrt(Time.deltaTime) * 0.5f);
+        pos.y += (adaptedVelocity.y * Time.deltaTime - gravity * Mathf.Sqrt(Time.deltaTime) * 0.5f) * Time.deltaTime;
 
         Vector3 v = new Vector3(pos.x, pos.y, 0.0f);
 
@@ -43,8 +43,12 @@ public class BulletMovement : MonoBehaviour
 
     public void CalculateVelocity(float degrees)
     {
-        adaptedVelocity.x = velocity * Mathf.Cos(degrees);
-        adaptedVelocity.y = velocity * Mathf.Sin(degrees);
+        int sign = degrees >= 0.0f ? 1 : -1;
+
+        degrees = Mathf.Abs(degrees);
+
+        adaptedVelocity.x = sign * velocity * Mathf.Cos(degrees);
+        adaptedVelocity.y = sign * velocity * Mathf.Sin(degrees);
 
         //GetComponentInChildren<Transform>().rotation = rotation;
 
