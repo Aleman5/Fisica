@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         }
 
         turnOf = 0; // Tank 0 always starts
+        timeLeft = timePerTurn;
     }
 
     void Update()
