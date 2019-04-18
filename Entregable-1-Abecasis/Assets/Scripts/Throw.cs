@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Throw : MonoBehaviour
 {
     [SerializeField] Transform bullet;
+    [SerializeField] Transform origPos;
 
     Transform parent;
 
-    private void Awake()
+    void Awake()
     {
         parent = GetComponentInParent<Transform>();
     }
@@ -17,17 +16,11 @@ public class Throw : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Transform t = Instantiate(bullet, parent.position, Quaternion.identity).transform;
+            Transform t = Instantiate(bullet, origPos.position, Quaternion.identity).transform;
 
-            //t.position = transform.position;
+            t.eulerAngles += transform.eulerAngles;
 
-            //tform.eulerAngles += transform.eulerAngles;
-
-            //Debug.Log(parent.eulerAngles.z);
-
-            WeaponRotation wR = parent.GetComponent<WeaponRotation>();
-
-            t.GetComponent<BulletMovement>().CalculateVelocity(wR.GetActualRotation());
+            t.GetComponent<BulletMovement>().CalculateVelocity(transform.eulerAngles.z + 90.0f);
         }
     }
 }
