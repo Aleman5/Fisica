@@ -8,14 +8,14 @@ public class CollisionManager : MonoBehaviour
 
     public enum Elements
     {
-        TANK_1 = 0,
+        TANK_0 = 0,
+        BULLET_0,
+        TANK_1,
         BULLET_1,
-        TANK_2,
-        BULLET_2,
         COUNT
     }
 
-    List<List<Transform>> transforms;
+    List<List<IColBox>> transforms;
     //List<List<bool>> relations;
     bool[,] relations;
 
@@ -25,7 +25,7 @@ public class CollisionManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            transforms.Add(new List<Transform>());
+            transforms.Add(new List<IColBox>());
 
             relations = new bool[count, count];
 
@@ -70,9 +70,9 @@ public class CollisionManager : MonoBehaviour
         }
     }
 
-    public void AddToDetector(Transform tObject, Elements element)
+    public void AddToDetector(IColBox tObject)
     {
-        transforms[(int)element].Add(tObject);
+        transforms[(int)tObject.GetTypeElem()].Add(tObject);
     }
 
     static public CollisionManager Instance
