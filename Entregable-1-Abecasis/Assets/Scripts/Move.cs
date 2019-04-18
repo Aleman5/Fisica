@@ -18,11 +18,11 @@ public class Move : MonoBehaviour
         Vector3 addPosition = Vector3.zero;
 
         // MRU
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             addPosition.x = speed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.A))
         {
             addPosition.x = -speed * Time.deltaTime;
         }

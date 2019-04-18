@@ -17,7 +17,7 @@ public class WeaponRotation : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.D) && actualRotation < 90.0f)
+        if (Input.GetKey(KeyCode.X) && actualRotation < 90.0f)
         {
             transform.Rotate(0.0f, 0.0f, -rotationSpeed, Space.Self);
             actualRotation += rotationSpeed;
@@ -25,7 +25,7 @@ public class WeaponRotation : MonoBehaviour
             if (actualRotation > 90.0f) actualRotation = 90.0f;
         }
 
-        if (Input.GetKey(KeyCode.A) && actualRotation > -90.0f)
+        if (Input.GetKey(KeyCode.Z) && actualRotation > -90.0f)
         {
             transform.Rotate(0.0f, 0.0f,  rotationSpeed, Space.Self);
             actualRotation -= rotationSpeed;
@@ -34,8 +34,5 @@ public class WeaponRotation : MonoBehaviour
         }
     }
 
-    public float GetActualRotation()
-    {
-        return actualRotation;
-    }
+    public float GetActualRotation() { return actualRotation; }
 }

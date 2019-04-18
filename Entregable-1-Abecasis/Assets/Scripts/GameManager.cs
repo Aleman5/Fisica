@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 1; i < tanks.Count; i++)
         {
-            tanks[i].moveScript.enabled = false;
             tanks[i].throwScript.enabled = false;
+            tanks[i].moveScript.enabled = false;
             tanks[i].weaRotScript.enabled = false;
         }
 
@@ -42,14 +42,15 @@ public class GameManager : MonoBehaviour
 
         if (timeLeft <= 0)
         {
-            tanks[turnOf].moveScript.enabled = false;
+            tanks[turnOf].throwScript.TankState = Throw.TankStates.Moving;
             tanks[turnOf].throwScript.enabled = false;
+            tanks[turnOf].moveScript.enabled = false;
             tanks[turnOf].weaRotScript.enabled = false;
 
             if (++turnOf == tanks.Count) turnOf = 0;
 
-            tanks[turnOf].moveScript.enabled = true;
             tanks[turnOf].throwScript.enabled = true;
+            tanks[turnOf].moveScript.enabled = true;
             tanks[turnOf].weaRotScript.enabled = true;
 
             timeLeft = timePerTurn;
@@ -59,6 +60,8 @@ public class GameManager : MonoBehaviour
     public float GetTimeLeft() { return timeLeft; }
 
     public float GetTimePerTurn() { return timePerTurn; }
+
+    public int GetTurnOf() { return turnOf; }
 
     static public GameManager Instance
     {

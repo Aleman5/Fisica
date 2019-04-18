@@ -25,9 +25,11 @@ public class BulletMovement : MonoBehaviour
         transform.position += new Vector3(x, y, 0.0f);
     }
 
-    public void CalculateVelocity(float degrees)
+    public void CalculateVelocity(float degrees, float charge)
     {
-        adaptedVelocity.x = velocity * Mathf.Cos(degrees * Mathf.Deg2Rad);
-        adaptedVelocity.y = velocity * Mathf.Sin(degrees * Mathf.Deg2Rad);
+        charge += 0.5f;
+
+        adaptedVelocity.x = charge * velocity * Mathf.Cos(degrees * Mathf.Deg2Rad);
+        adaptedVelocity.y = charge * velocity * Mathf.Sin(degrees * Mathf.Deg2Rad);
     }
 }
