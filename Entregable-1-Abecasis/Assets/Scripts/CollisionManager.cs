@@ -15,13 +15,15 @@ public class CollisionManager : MonoBehaviour
         COUNT
     }
 
-    List<List<IColBox>> transforms;
+    List<List<IColBox>> transforms; // Here is a error
     //List<List<bool>> relations;
     bool[,] relations;
 
     void Awake()
     {
         int count = (int)Elements.COUNT;
+
+        transforms = new List<List<IColBox>>();
 
         for (int i = 0; i < count; i++)
         {
@@ -50,22 +52,33 @@ public class CollisionManager : MonoBehaviour
 
     void CheckCollisions()
     {
-        for (int l1 = 0; l1 < transforms.Count; l1++)
-            for (int l2 = l1; l2 < transforms[l1].Count; l2++)
-                if (relations[l1, l2])
-                    RealCollisionDetecter(l1, l2);
+        for (int tank = 0; tank < transforms.Count; tank += 2)
+            for (int bullet = 1; bullet < transforms.Count; bullet += 2)
+                if (tank++ != bullet) // It means that this bullet's list is not from this tank
+                    CollisionTankBullets(transforms[tank], transforms[bullet]);
     }
 
-    void RealCollisionDetecter(int index1, int index2)
+    void CollisionTankBullets(List<IColBox> tank, List<IColBox> bullets)
     {
-        if (transforms[index1].Count == 0 || transforms[index2].Count == 0)
+        if (tank.Count == 0 || bullets.Count == 0)
             return;
 
-        for (int l1 = 0; l1 < transforms[index1].Count; l1++)
-        {
-            for (int l2 = 0; l2 < transforms[index2].Count; l2++)
-            {
+        Vector2 hitBox1 = tank[0].GetBoxValues();
 
+        for (int i = 0; i < bullets.Count; i++)
+        {
+            Vector3 diff = bullets[i].GetPosition() - tank[0].GetPosition();
+
+            float diffX = Mathf.Abs(diff.x);
+            float diffY = Mathf.Abs(diff.y);
+
+            Vector2 hitBox2 = bullets[i].GetBoxValues();
+            
+            if (diffX < hitBox1.x + hitBox2.x && diffY < hitBox1.y + hitBox2.y)
+            {
+                tank[0].OnCollision();
+                bullets[i].OnCollision();
+                Debug.Log("Colisione wey");
             }
         }
     }

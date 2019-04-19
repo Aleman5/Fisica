@@ -6,7 +6,8 @@ using static CollisionManager;
 public class BulletHitBox : MonoBehaviour, IColBox
 {
     [SerializeField] Vector2 hitBoxRadius;
-    [SerializeField] Elements type;
+
+    Elements type;
 
     void Start()
     {
@@ -17,6 +18,8 @@ public class BulletHitBox : MonoBehaviour, IColBox
     {
 
     }
+
+    public void SetTypeElem(Elements type) { this.type = ++type; }
 
     public Vector3 GetPosition()  { return transform.position; }
 

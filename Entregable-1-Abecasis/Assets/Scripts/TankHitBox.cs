@@ -18,6 +18,8 @@ public class TankHitBox : MonoBehaviour, IColBox
 
     }
 
+    public void SetTypeElem(Elements type) {  }
+
     public Vector3 GetPosition()  { return transform.position; }
 
     public Vector2 GetBoxValues() { return hitBoxRadius; }

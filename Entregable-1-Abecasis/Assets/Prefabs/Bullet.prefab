@@ -233,4 +233,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710fde8eeb45193438e9ca670e15e4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitBox: {x: 0, y: 0}
+  hitBoxRadius: {x: 0.0807, y: 0.0807}

@@ -28,13 +28,14 @@ public class Throw : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(parent.name);
         switch (state)
         {
             case TankStates.Moving:
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    parent.GetComponentInParent<Move>().enabled = false;
-                    parent.GetComponent<WeaponRotation>().enabled = false;
+                    transform.GetComponentInParent<Move>().enabled = false;
+                    transform.GetComponent<WeaponRotation>().enabled = false;
 
                     state = TankStates.Charging;
                 }
@@ -57,9 +58,10 @@ public class Throw : MonoBehaviour
                     Transform t = Instantiate(bullet, origPos.position, Quaternion.identity).transform;
                     t.eulerAngles += transform.eulerAngles;
                     t.GetComponent<BulletMovement>().CalculateVelocity(transform.eulerAngles.z + 90.0f, GetActualCharge());
+                    t.GetComponent<IColBox>().SetTypeElem(transform.GetComponentInParent<IColBox>().GetTypeElem());
 
-                    parent.GetComponentInParent<Move>().enabled = true;
-                    parent.GetComponent<WeaponRotation>().enabled = true;
+                    transform.GetComponentInParent<Move>().enabled = true;
+                    transform.GetComponent<WeaponRotation>().enabled = true;
 
                     chargeDischarge = true;
                     actualCharge = 1.0f;
