@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static CollisionManager;
 
 public class Throw : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class Throw : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(parent.name);
         switch (state)
         {
             case TankStates.Moving:
@@ -58,7 +58,10 @@ public class Throw : MonoBehaviour
                     Transform t = Instantiate(bullet, origPos.position, Quaternion.identity).transform;
                     t.eulerAngles += transform.eulerAngles;
                     t.GetComponent<BulletMovement>().CalculateVelocity(transform.eulerAngles.z + 90.0f, GetActualCharge());
-                    t.GetComponent<IColBox>().SetTypeElem(transform.GetComponentInParent<IColBox>().GetTypeElem());
+
+
+                    Elements tankElem = transform.GetComponentInParent<IColBox>().GetTypeElem();
+                    t.GetComponent<IColBox>().SetTypeElem(tankElem);
 
                     transform.GetComponentInParent<Move>().enabled = true;
                     transform.GetComponent<WeaponRotation>().enabled = true;

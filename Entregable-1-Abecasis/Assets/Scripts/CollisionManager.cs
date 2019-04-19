@@ -15,8 +15,8 @@ public class CollisionManager : MonoBehaviour
         COUNT
     }
 
-    List<List<IColBox>> transforms; // Here is a error
-    //List<List<bool>> relations;
+    List<List<IColBox>> transforms;
+    
     bool[,] relations;
 
     void Awake()
@@ -54,8 +54,15 @@ public class CollisionManager : MonoBehaviour
     {
         for (int tank = 0; tank < transforms.Count; tank += 2)
             for (int bullet = 1; bullet < transforms.Count; bullet += 2)
-                if (tank++ != bullet) // It means that this bullet's list is not from this tank
+            {
+                int b = tank + 1;
+
+                if (b != bullet) // It means that this bullet's list is not from this tank
+                {
+                    //Debug.Log(tank + " " + bullet);
                     CollisionTankBullets(transforms[tank], transforms[bullet]);
+                }
+            }
     }
 
     void CollisionTankBullets(List<IColBox> tank, List<IColBox> bullets)
@@ -78,7 +85,7 @@ public class CollisionManager : MonoBehaviour
             {
                 tank[0].OnCollision();
                 bullets[i].OnCollision();
-                Debug.Log("Colisione wey");
+                bullets.RemoveAt(i--);
             }
         }
     }

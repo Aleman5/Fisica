@@ -16,7 +16,11 @@ public class BulletHitBox : MonoBehaviour, IColBox
 
     public void OnCollision()
     {
+        Transform trail = transform.GetComponentInChildren<Transform>();
+        trail.SetParent(null);
+        trail.gameObject.AddComponent<AutoDestroy>();
 
+        Destroy(gameObject);
     }
 
     public void SetTypeElem(Elements type) { this.type = ++type; }
