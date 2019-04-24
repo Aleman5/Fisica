@@ -20,7 +20,7 @@ public class BulletMovement : MonoBehaviour
         time += Time.deltaTime;
 
         float x = adaptedVelocity.x * Time.deltaTime;
-        float y = adaptedVelocity.y * Time.deltaTime - gravity * Mathf.Sqrt(time) * 0.5f * Time.deltaTime;
+        float y = adaptedVelocity.y * Time.deltaTime - gravity * Mathf.Pow(time, 2.0f) * 0.5f * Time.deltaTime;
 
         transform.position += new Vector3(x, y, 0.0f);
     }

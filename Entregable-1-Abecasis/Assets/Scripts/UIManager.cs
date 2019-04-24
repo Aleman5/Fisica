@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
         // Time
         float t = GameManager.Instance.GetTimeLeft();
         timeLeftTxt.color = Color.Lerp(colorA, colorB, t / timePerTurn);
-        timeLeftTxt.text = "Time for next turn: " + t;
+        timeLeftTxt.text = "Next turn: " + t;
 
         // Fill bar
         int turnOf = GameManager.Instance.GetTurnOf();
