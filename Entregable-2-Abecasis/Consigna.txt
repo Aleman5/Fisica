@@ -1,0 +1,5 @@
+Platformer
+1 platarforma recta
+Personaje que se mueve con MRU
+1 trampa que siga un MCU (Movimiento Circular Uniforme)
+Cuando el personaje toca la trampa muere
