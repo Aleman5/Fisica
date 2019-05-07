@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MyPhysics;
 
 public class BulletMovement : MonoBehaviour
 {
@@ -23,10 +22,8 @@ public class BulletMovement : MonoBehaviour
         //float x = adaptedVelocity.x * Time.deltaTime;
         //float y = adaptedVelocity.y * Time.deltaTime - gravity * Mathf.Pow(time, 2.0f) * 0.5f * Time.deltaTime;
 
-        float x = Aleman5DLL.Physics.NextPositionMRU(transform.position.x, adaptedVelocity.x);
-        float y = Aleman5DLL.Physics.NextPositionObliqueShot(transform.position.y, adaptedVelocity.y, time);
-
-        Debug.Log("x: " + x + " y: " + y);
+        float x = Aleman5DLL.Physics.NextPositionMRU(adaptedVelocity.x);
+        float y = Aleman5DLL.Physics.NextPositionObliqueShot(adaptedVelocity.y, time);
 
         transform.position += new Vector3(x, y, 0.0f);
     }

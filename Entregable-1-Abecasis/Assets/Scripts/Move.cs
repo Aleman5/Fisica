@@ -20,11 +20,11 @@ public class Move : MonoBehaviour
         // MRU
         if (Input.GetKey(KeyCode.S))
         {
-            addPosition.x = speed * Time.deltaTime;
+            addPosition.x = Aleman5DLL.Physics.NextPositionMRU(speed);
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            addPosition.x = -speed * Time.deltaTime;
+            addPosition.x = Aleman5DLL.Physics.NextPositionMRU(-speed);
         }
 
         t.position += addPosition;
