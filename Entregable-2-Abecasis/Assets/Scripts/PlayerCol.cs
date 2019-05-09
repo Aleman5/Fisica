@@ -1,22 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCol : Aleman5DLL.Collisions.Box
 {
-    [SerializeField] Vector2 hitBoxRadius;
-    [SerializeField] Aleman5DLL.Collisions.Elements type;
-
-    void Awake()
-    {
-        SetData(hitBoxRadius, type);
-    }
-
     public override void OnCollision(Aleman5DLL.Collisions.Box collision)
     {
         if (collision.GetTypeElem() == Aleman5DLL.Collisions.Elements.Enemy)
-        {
-
-        }
+            SceneManager.LoadScene(0);
     }
 }

@@ -16,8 +16,8 @@ namespace Aleman5DLL
 
         public class Box : MonoBehaviour
         {
-            Vector2 hitBoxRadius;
-            Elements type = Elements.Default;
+            [SerializeField] Vector2 hitBoxRadius;
+            [SerializeField] Elements type = Elements.Default;
 
             void Start()
             {
@@ -26,7 +26,6 @@ namespace Aleman5DLL
 
             public virtual void OnCollision(Box collision)
             {
-
             }
 
             public void SetData(Vector2 hitBox, Elements type)
@@ -69,12 +68,12 @@ namespace Aleman5DLL
                         relations[c, v] = false;
             }
 
-            void Update()
+            public void Update()
             {
                 CheckCollisions();
             }
 
-            void SetRelation(int elem1, int elem2)
+            public void SetRelation(int elem1, int elem2)
             {
                 if (elem1 <= elem2)
                     relations[elem1, elem2] = true;
@@ -99,13 +98,13 @@ namespace Aleman5DLL
 
                 List<Box> boxesCollided = new List<Box>();
 
-                Vector2 hitBox1 = l1[0].GetBoxValues();
-
                 for (int i = 0; i < l1.Count; i++)
                 {
+                    Vector2 hitBox1 = l1[i].GetBoxValues();
+
                     for (int j = 0; j < l2.Count; j++)
                     {
-                        Vector3 diff = l2[i].GetPosition() - l1[0].GetPosition();
+                        Vector3 diff = l2[j].GetPosition() - l1[i].GetPosition();
 
                         float diffX = Mathf.Abs(diff.x);
                         float diffY = Mathf.Abs(diff.y);

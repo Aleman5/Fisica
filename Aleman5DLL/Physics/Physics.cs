@@ -48,14 +48,18 @@ namespace Aleman5DLL
             return newPos;
         }
 
-        public static Vector3 MCU(Vector3 pos, float angle, float radio)
+        public static Vector3 MCU(float angle, float radio)
         {
-            Vector3 a = pos.x * Vector3.right + pos.y * Vector3.up;
+            Vector3 newPos = radio * Mathf.Cos(angle) * Vector3.right + radio * Mathf.Sin(angle) * Vector3.up;
 
-
-            // r→= x⋅i→+y⋅j→= R⋅cos(φ)⋅i→+R⋅sin(φ)⋅j→
-
-            return a;
+            return newPos;
         }
+
+        /*public static Vector3 MCUDistinto()
+        {
+            Vector3 newPos;
+
+            return newPos;
+        }*/
     }
 }
