@@ -1,4 +1,0 @@
-Tener en pantalla un camino (visto desde arriba). Sobre el camino van a ir apareciendo autos.
-Los autos se van a mover haia abajo. Tmb van a aparecer arbolitos, que se mueven para abajo.
-Nuestro pj es un autito. El juego se va a controlar con dos controles.
-Cada control mueve una de las ruedas.
