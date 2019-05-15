@@ -47,6 +47,9 @@ TagManager:
   - name: Middleground
     uniqueID: 105958723
     locked: 0
+  - name: Fire
+    uniqueID: 4165909413
+    locked: 0
   - name: Sprites
     uniqueID: 1475277823
     locked: 0
