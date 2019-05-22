@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6248499749326414147}
   - component: {fileID: 6248499749326414146}
   - component: {fileID: 6248499750650638761}
+  - component: {fileID: 6248499750650638762}
+  - component: {fileID: 7698142468128648447}
   m_Layer: 10
   m_Name: Car
   m_TagString: Untagged
@@ -59,7 +61,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6c72ceadad9dd408701d16f5885254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  leftWheel: {fileID: 6248499750650638762}
+  rightWheel: {fileID: 7698142468128648447}
+  speed: 10
+  yLimit: 0
+  xLimit: 0
+--- !u!114 &6248499750650638762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248499749326414148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5aef8711634ae4d8599eed9dbd5563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angVelocity: 0
+  speed: 1
+  maxSpeed: 10
+  maxAngVel: 10
+--- !u!114 &7698142468128648447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248499749326414148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5aef8711634ae4d8599eed9dbd5563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angVelocity: 0
+  speed: 1
+  maxSpeed: 10
+  maxAngVel: 10
 --- !u!1 &6248499750667338887
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +164,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1475277823
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7cc25481afee2bf44aab648b534d1ac6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

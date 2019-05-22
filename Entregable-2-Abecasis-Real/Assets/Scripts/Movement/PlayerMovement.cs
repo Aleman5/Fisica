@@ -4,15 +4,62 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
+    public Wheel leftWheel;
+    public Wheel rightWheel;
+    public float speed;
 
-    float radio = 1.0f;
-    float angle = 0.0f;
+    public float minY;
+    public float maxY;
+    public float minX;
+    public float maxX;
 
-    float forceX = 0.0f;
-    float forceY = 0.0f;
+    //float forceX = 0.0f;
+    //float forceY = 0.0f;
 
     void Update()
+    {
+        float axis = Input.GetAxis("Horizontal");
+
+        if (axis == 0)
+        {
+            if (Input.GetKey(KeyCode.A) && transform.position.y < maxY)
+            {
+                leftWheel.speed += speed * 0.5f;
+                rightWheel.speed += speed * 0.5f;
+                transform.position += Aleman5DLL.Physics.NextPositionMRU(
+                    (rightWheel.TractionForce() + leftWheel.TractionForce()) * 0.5f, Vector3.up);
+                
+            }
+            else
+            {
+                leftWheel.speed = 0.0f;
+                rightWheel.speed = 0.0f;
+                if (transform.position.y > minY)
+                    transform.position += Aleman5DLL.Physics.NextPositionMRU(
+                    speed * 0.3f, Vector3.down);
+            }
+        }
+        else
+        {
+            if (axis > 0.0f)
+            {
+                leftWheel.speed += axis * speed * Time.deltaTime;
+                transform.position += Aleman5DLL.Physics.NextPositionMRU(
+                    leftWheel.TractionForce(), Vector3.up + Vector3.right);
+            }
+            else
+            {
+                rightWheel.speed += axis * speed * Time.deltaTime * -1;
+                transform.position += Aleman5DLL.Physics.NextPositionMRU(
+                    rightWheel.TractionForce(), Vector3.up + Vector3.left);
+            }
+        }
+    }
+}
+
+
+
+/*void Update()
     {
         Vector3 addPosition = Vector3.zero;
 
@@ -47,12 +94,4 @@ public class PlayerMovement : MonoBehaviour
             Vector3 extraPos = Aleman5DLL.Physics.MCU(angle, radio * (i + 1));
             fireGameObjects[i].position = transform.position + extraPos;
         }
-    }
-
-    public Vector3 MCU(float angle, float radio, float forceX, float forceY)
-    {
-        Vector3 newPos = radio * Mathf.Cos(angle) * Vector3.right + radio * Mathf.Sin(angle) * Vector3.up;
-
-        return newPos;
-    }
-}
+    }*/

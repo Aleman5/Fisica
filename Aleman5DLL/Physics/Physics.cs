@@ -22,6 +22,19 @@ namespace Aleman5DLL
         }
 
         /// <summary>
+        /// Returns the next position based on the speed using MRU
+        /// </summary>
+        /// <param name="speed">Actual speed of the element</param>
+        /// <param name="dir">Direction to move the element</param>
+        /// <returns>Next position of the element</returns>
+        public static Vector3 NextPositionMRU(float speed, Vector3 dir)
+        {
+            dir *= speed * Time.deltaTime;
+
+            return dir;
+        }
+
+        /// <summary>
         /// Returns the next position based on the speed using MRUV
         /// </summary>
         /// <param name="speed">Actual speed of the element</param>
@@ -55,11 +68,11 @@ namespace Aleman5DLL
             return newPos;
         }
 
-        /*public static Vector3 MCUDistinto()
+        public static float CalculateAngularVelocity(float angleI, float angleF, float timeI, float timeF)
         {
-            Vector3 newPos;
-
-            return newPos;
-        }*/
+            float angle = angleI - angleF;
+            float time = timeI - timeF;
+            return angle / time;
+        }
     }
 }

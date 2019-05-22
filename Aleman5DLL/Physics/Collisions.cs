@@ -11,6 +11,7 @@ namespace Aleman5DLL
             Player,
             Enemy,
             Enviroment,
+            Walls,
             Count
         }
 
@@ -68,7 +69,7 @@ namespace Aleman5DLL
                         relations[c, v] = false;
             }
 
-            public void Update()
+            public void LateUpdate()
             {
                 CheckCollisions();
             }
