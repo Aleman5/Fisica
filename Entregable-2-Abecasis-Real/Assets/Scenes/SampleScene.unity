@@ -785,6 +785,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyCar
       objectReference: {fileID: 0}
+    - target: {fileID: 4733529650144485862, guid: 607a6416009d14943906b1b67e7321ef,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4733529650144485857, guid: 607a6416009d14943906b1b67e7321ef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -934,6 +939,46 @@ PrefabInstance:
         type: 3}
       propertyPath: minX
       value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248499750650638761, guid: fbdad00956aa36f43847be0ca48301b3,
+        type: 3}
+      propertyPath: acceleration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248499750650638761, guid: fbdad00956aa36f43847be0ca48301b3,
+        type: 3}
+      propertyPath: friction
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248499750650638762, guid: fbdad00956aa36f43847be0ca48301b3,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248499750650638762, guid: fbdad00956aa36f43847be0ca48301b3,
+        type: 3}
+      propertyPath: maxAngVel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248499750650638762, guid: fbdad00956aa36f43847be0ca48301b3,
+        type: 3}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698142468128648447, guid: fbdad00956aa36f43847be0ca48301b3,
+        type: 3}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698142468128648447, guid: fbdad00956aa36f43847be0ca48301b3,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698142468128648447, guid: fbdad00956aa36f43847be0ca48301b3,
+        type: 3}
+      propertyPath: maxAngVel
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbdad00956aa36f43847be0ca48301b3, type: 3}
