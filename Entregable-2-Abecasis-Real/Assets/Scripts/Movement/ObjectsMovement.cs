@@ -12,7 +12,7 @@ public class ObjectsMovement : MonoBehaviour
     }
 
     [SerializeField] float speed;
-    [SerializeField] float extraSpeed;
+    //[SerializeField] float extraSpeed;
     [SerializeField] float limit;
     [SerializeField] TypeOfObject type;
     
@@ -36,23 +36,22 @@ public class ObjectsMovement : MonoBehaviour
 
     public void LimitReached()
     {
-        float x = Random.Range(-8.3f, 8.3f);
-        
-        switch(type)
-        {
-            case TypeOfObject.Car:
-                actualSpeed -= Random.Range(extraSpeed * 0.7f, extraSpeed * 1.3f);
-                transform.position = new Vector2(x, parent.y);
-            break;
-            case TypeOfObject.Enviroment:
-                transform.position = new Vector2(x, parent.y);
-            break;
-            case TypeOfObject.Floor:
-                transform.position = new Vector2(parent.x, parent.y + 8.0f);
-            break;
-        }
-        
         GameManager.Instance.AddPoints((int)type);
+        
+        if (type == TypeOfObject.Floor)
+            transform.position = new Vector2(parent.x, parent.y + 8.0f);
+        else
+            Destroy(gameObject);
+    }
+
+    public void SetSpeed(float speed)
+    {
+        actualSpeed = speed;
+    }
+
+    public int GetElemType()
+    {
+        return (int)type;
     }
 }
 

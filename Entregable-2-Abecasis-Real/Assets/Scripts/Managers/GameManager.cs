@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
         Floor
     }
 
+    [SerializeField] EnemySpawner eS;
     [SerializeField] int carPoints;
     [SerializeField] int EnviromentPoints;
     [SerializeField] int FloorPoints;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
                 UIManager.Instance.PointsUpdate();
                 level++;
                 UIManager.Instance.NewLevelReached();
+                eS.NewLevelReached();
             break;
         }
     }

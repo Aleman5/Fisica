@@ -25,6 +25,11 @@ namespace Aleman5DLL
                 CollisionManager.Instance.AddToDetector(this);
             }
 
+            void OnDestroy()
+            {
+                CollisionManager.Instance.RemoveFromDetector(this);
+            }
+
             public virtual void OnCollision(Box collision)
             {
             }
@@ -127,6 +132,11 @@ namespace Aleman5DLL
             public void AddToDetector(Box tObject)
             {
                 boxes[(int)tObject.GetTypeElem()].Add(tObject);
+            }
+
+            public void RemoveFromDetector(Box tObject)
+            {
+                boxes[(int)tObject.GetTypeElem()].Remove(tObject);
             }
 
             static public CollisionManager Instance
