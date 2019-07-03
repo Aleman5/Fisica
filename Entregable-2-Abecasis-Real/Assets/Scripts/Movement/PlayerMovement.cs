@@ -1,14 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+enum State
+{
+    NEGATIVE = -1,
+    NULL = 0,
+    POSITIVE = 1,
+}
 
 public class PlayerMovement : MonoBehaviour
 {
     public Wheel leftWheel;
     public Wheel rightWheel;
-    public float speed;
-    public float acceleration;
-    public float friction;
 
     public float minY;
     public float maxY;
@@ -17,81 +19,67 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float deltaT = Time.deltaTime;
-
-        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Z)){
-            if (Input.GetKey(KeyCode.A))
-                leftWheel.speed += acceleration * deltaT;
-            if (Input.GetKey(KeyCode.Z))
-                leftWheel.speed -= acceleration * deltaT;
-        }
-        else if(leftWheel.speed != 0){
-            leftWheel.speed = Mathf.Lerp(leftWheel.speed, 0, friction);
-        }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.C)){
-            if (Input.GetKey(KeyCode.D))
-                rightWheel.speed += acceleration * deltaT;
-            if (Input.GetKey(KeyCode.C))
-                rightWheel.speed -= acceleration * deltaT;
-        }
-        else if (rightWheel.speed != 0){
-            rightWheel.speed = Mathf.Lerp(rightWheel.speed, 0, friction );
+        switch ((int)Input.GetAxisRaw("RightWheel"))
+        {
+            case (int)State.POSITIVE:
+                if (rightWheel.accel < rightWheel.maxAccel)
+                    rightWheel.accel += Time.deltaTime;
+                break;
+            case (int)State.NEGATIVE:
+                if (rightWheel.accel > -rightWheel.maxAccel)
+                    rightWheel.accel -= Time.deltaTime;
+                break;
+            case (int)State.NULL:
+                if (rightWheel.accel != 0.0f)
+                    rightWheel.accel = (rightWheel.speed > 0.0f) ? -rightWheel.friction : rightWheel.friction;
+                break;
         }
 
-        if (leftWheel.TractionForce() == rightWheel.TractionForce()){
-                transform.position += Aleman5DLL.Physics.NextPositionMRU(rightWheel.TractionForce(), Vector3.up);
-        }else if(leftWheel.TractionForce() > rightWheel.TractionForce()){
-                transform.position += Aleman5DLL.Physics.NextPositionMRU(leftWheel.TractionForce() + rightWheel.TractionForce(),
-                                                                        Vector3.up + Vector3.left);
-        }
-        else if (leftWheel.TractionForce() < rightWheel.TractionForce()){
-            transform.position += Aleman5DLL.Physics.NextPositionMRU(rightWheel.TractionForce() + leftWheel.TractionForce(),
-                                                                    Vector3.up + Vector3.right);
-        }
-        if (transform.position.y > 0 && leftWheel.TractionForce() == 0 && rightWheel.TractionForce() == 0) { 
-            transform.position += Aleman5DLL.Physics.NextPositionMRU(acceleration, Vector3.down);
+        switch ((int)Input.GetAxisRaw("LeftWheel"))
+        {
+            case (int)State.POSITIVE:
+                if (leftWheel.accel < leftWheel.maxAccel)
+                    leftWheel.accel += Time.deltaTime * 2.0f;
+                break;
+            case (int)State.NEGATIVE:
+                if (leftWheel.accel > -leftWheel.maxAccel)
+                    leftWheel.accel -= Time.deltaTime * 2.0f;
+                break;
+            case (int)State.NULL:
+                if (leftWheel.accel != 0.0f)
+                    leftWheel.accel = (leftWheel.speed > 0.0f) ? -leftWheel.friction : leftWheel.friction;
+                break;
         }
 
+        float minRightWheelSpeed = (rightWheel.accel == -rightWheel.friction) ? 0f : -rightWheel.maxSpeed;
+        float minLeftWheelSpeed  = (leftWheel.accel  == -leftWheel.friction)  ? 0f : -leftWheel.maxSpeed;
+        float maxRightWheelSpeed = (rightWheel.accel ==  rightWheel.friction) ? 0f :  rightWheel.maxSpeed;
+        float maxLeftWheelSpeed  = (leftWheel.accel  ==  leftWheel.friction)  ? 0f :  leftWheel.maxSpeed;
+
+        Aleman5DLL.Physics.ConstAccelCirc2D(rightWheel.radius, rightWheel.accel, ref rightWheel.speed, minRightWheelSpeed, maxRightWheelSpeed);
+        Aleman5DLL.Physics.ConstAccelCirc2D(leftWheel.radius, leftWheel.accel, ref leftWheel.speed, minLeftWheelSpeed, maxLeftWheelSpeed);
+
+        float carSpeedRight = rightWheel.radius * rightWheel.speed;
+        float carSpeedLeft = leftWheel.radius * leftWheel.speed;
+
+        Vector3 dirRight = Mathf.Sign(carSpeedRight) * transform.up + transform.right;
+        if (rightWheel.speed < 0.0f)
+        {
+            dirRight.x *= -1.0f;
+            dirRight.y *= -1.0f;
+        } 
+        dirRight.Normalize();
+        
+        Vector3 dirLeft = Mathf.Sign(carSpeedLeft) * transform.up - transform.right;
+        if (leftWheel.speed < 0.0f)
+        {
+            dirLeft.x *= -1.0f;
+            dirLeft.y *= -1.0f;
+        }    
+        dirLeft.Normalize();
+
+        transform.position += Aleman5DLL.Physics.NextPositionMRU(carSpeedLeft, dirLeft);
+        transform.position += Aleman5DLL.Physics.NextPositionMRU(carSpeedRight, dirRight);
     }
-
-    /*void Update()
-    {
-        float axis = Input.GetAxis("Horizontal");
-
-        if (axis == 0)
-        {
-            if (Input.GetKey(KeyCode.A) && transform.position.y < maxY)
-            {
-                leftWheel.speed += speed * 0.5f;
-                rightWheel.speed += speed * 0.5f;
-                transform.position += Aleman5DLL.Physics.NextPositionMRU(
-                    (rightWheel.TractionForce() + leftWheel.TractionForce()) * 0.5f, Vector3.up);
-                
-            }
-            else
-            {
-                leftWheel.speed = 0.0f;
-                rightWheel.speed = 0.0f;
-                if (transform.position.y > minY)
-                    transform.position += Aleman5DLL.Physics.NextPositionMRU(
-                    speed * 0.3f, Vector3.down);
-            }
-        }
-        else
-        {
-            if (axis > 0.0f)
-            {
-                leftWheel.speed += axis * speed * Time.deltaTime;
-                transform.position += Aleman5DLL.Physics.NextPositionMRU(
-                    leftWheel.TractionForce(), Vector3.up + Vector3.right);
-            }
-            else
-            {
-                rightWheel.speed += axis * speed * Time.deltaTime * -1;
-                transform.position += Aleman5DLL.Physics.NextPositionMRU(
-                    rightWheel.TractionForce(), Vector3.up + Vector3.left);
-            }
-        }
-    }*/
 }
 
